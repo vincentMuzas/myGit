@@ -57,5 +57,8 @@ t_usage *get_usage();
 t_usage parse_args(int argc, char **argv);
 void print_usage();
 void print_usage_line(t_usage usage);
-
 int not_implemented(int argc, char **argv);
+
+// functions
+int status(int argc, char **argv);
+int init(int argc, char **argv);

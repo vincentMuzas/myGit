@@ -4,7 +4,10 @@ LDFLAGS	=
 
 NAME	= myGit
 SRC		= 	main.c	\
-			usage.c
+			usage.c	\
+			init.c	\
+			status.c
+
 OBJ		= $(SRC:.c=.o)
 
 all: $(NAME)

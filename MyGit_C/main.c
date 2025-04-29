@@ -6,8 +6,7 @@ int main(int argc, char **argv)
 
     if (usage.method != NULL)
     {
-        usage.method(argc - 2, &argv[2]);
-        return EXIT_SUCCESS;
+        return usage.method(argc - 2, &argv[2]);
     }
     return EXIT_FAILURE;
 }
