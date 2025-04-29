@@ -6,7 +6,8 @@ NAME	= myGit
 SRC		= 	main.c	\
 			usage.c	\
 			init.c	\
-			status.c
+			branch.c 	\
+			diff.c	\
 
 OBJ		= $(SRC:.c=.o)
 
@@ -20,6 +21,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -rf .mygit/
 
 re: fclean all
 

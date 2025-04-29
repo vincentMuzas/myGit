@@ -1,15 +1,15 @@
-#include "status.h"
+#include "branch.h"
 
-int status(int argc, char **argv)
+int branch(int argc, char **argv)
 {
     UNUSED(argc);
     UNUSED(argv);
-    return status_func();
+    return branch_func();
 }
 
-int status_func(void)
+int branch_func(void)
 {
-    t_index *index = malloc(sizeof(t_index));
+    t_branches *index = malloc(sizeof(t_branches));
     if (index == NULL)
     {
         fprintf(stderr, "Error: Memory allocation failed.\n");
@@ -24,11 +24,10 @@ int status_func(void)
         return EXIT_FAILURE;
     }
 
-    while (fread(index, sizeof(t_index), 1, file) == 1)
+    while (fread(index, sizeof(t_branches), 1, file) == 1)
     {
         printf("=========================\n");
         printf("Branch: %s\n", index->branch_name);
-        printf("Created on: %s", ctime(&index->created_on));
         printf("Origin: %s\n", index->origin);
     }
 

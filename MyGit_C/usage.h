@@ -38,7 +38,15 @@
 #define USAGE_HELP_DESC "Display this help message.\n"
 #define USAGE_HELP_ARG false
 
-#define USAGE_ARGS_COUNT 9
+#define USAGE_BRANCH_NAME "branch"
+#define USAGE_BRANCH_DESC "Display all possible branches indexes\n"
+#define USAGE_BRANCH_ARG false
+
+#define USAGE_DIFF_NAME "diff"
+#define USAGE_DIFF_DESC "Display the differences to the current branch\n"
+#define USAGE_DIFF_ARG false
+
+#define USAGE_ARGS_COUNT 11
 
 #define NULL_USAGE {NULL, NULL, false, NULL}
 
@@ -60,5 +68,6 @@ void print_usage_line(t_usage usage);
 int not_implemented(int argc, char **argv);
 
 // functions
-int status(int argc, char **argv);
+int branch(int argc, char **argv);
 int init(int argc, char **argv);
+int diff(int argc, char **argv);
