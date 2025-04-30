@@ -57,13 +57,13 @@ t_usage *get_usage()
         {USAGE_INIT_NAME, USAGE_INIT_DESC, USAGE_INIT_ARG, &init},
         {USAGE_BRANCH_NAME, USAGE_BRANCH_DESC, USAGE_BRANCH_ARG, &branch},
         {USAGE_STATUS_NAME, USAGE_STATUS_DESC, USAGE_STATUS_ARG, &status},
+        {USAGE_ADD_NAME, USAGE_ADD_DESC, USAGE_ADD_ARG, &add},
         {USAGE_DIFF_NAME, USAGE_DIFF_DESC, USAGE_DIFF_ARG, &not_implemented},
         {USAGE_PUSH_NAME, USAGE_PUSH_DESC, USAGE_ADD_ARG, &not_implemented},
         {USAGE_PULL_NAME, USAGE_PULL_DESC, USAGE_PULL_ARG, &not_implemented},
         {USAGE_COMMIT_NAME, USAGE_COMMIT_DESC, USAGE_COMMIT_ARG, &not_implemented},
         {USAGE_CLONE_NAME, USAGE_CLONE_DESC, USAGE_CLONE_ARG, &not_implemented},
         {USAGE_CHECKOUT_NAME, USAGE_CHECKOUT_DESC, USAGE_CHECKOUT_ARG, &not_implemented},
-        {USAGE_ADD_NAME, USAGE_ADD_DESC, USAGE_ADD_ARG, &not_implemented},
         {USAGE_HELP_NAME, USAGE_HELP_DESC, USAGE_HELP_ARG, &not_implemented},
         NULL_USAGE // Null-terminated array
     };

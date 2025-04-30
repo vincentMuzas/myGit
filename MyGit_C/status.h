@@ -17,6 +17,12 @@
 #define DELETEDFILE 3
 #define UNCHANGEDFILE 4
 
+typedef struct s_blob
+{
+    long size;
+    char *blob;
+} t_blob;
+
 int scandiffs(char *path, char *latest_commit);
 
 int check_diff(char *path, char *latest_commit);
@@ -32,3 +38,5 @@ void print_latest_commit(char *commit_hash);
 int get_commit_hash(char *commit_hash, char *file_name);
 
 void print_diff_status(char *filepath, int status);
+
+t_blob get_latest_file_blob(char *commit_hash, char *file_name);

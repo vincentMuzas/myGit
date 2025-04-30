@@ -5,7 +5,7 @@ void color_red()
     printf("\033[1;31m");
 }
 
-void yellow()
+void color_yellow()
 {
     printf("\033[1;33m");
 }
@@ -33,6 +33,11 @@ void color_cyan()
 void color_white()
 {
     printf("\033[1;37m");
+}
+
+void color_purple()
+{
+    printf("\033[1;35m");
 }
 
 void color_reset()

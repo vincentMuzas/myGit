@@ -71,3 +71,4 @@ int not_implemented(int argc, char **argv);
 int branch(int argc, char **argv);
 int init(int argc, char **argv);
 int status(int argc, char **argv);
+int add(int argc, char **argv);

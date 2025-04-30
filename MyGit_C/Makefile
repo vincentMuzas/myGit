@@ -1,5 +1,5 @@
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -Wpedantic -O3 -march=native -I./
+CFLAGS	= -Wall -Wextra -Werror -Wpedantic -O3 -march=native -I./ -g
 LDFLAGS	=
 
 NAME	= myGit
@@ -9,6 +9,8 @@ SRC		= 	main.c	\
 			branch.c 	\
 			status.c	\
 			colors.c	\
+			commit_utils.c	\
+			add.c	\
 
 OBJ		= $(SRC:.c=.o)
 
@@ -22,7 +24,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	rm -rf .mygit/
 
 re: fclean all
 

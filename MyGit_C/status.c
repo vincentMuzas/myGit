@@ -29,7 +29,9 @@ int scandiffs(char *path, char *latest_commit)
     DIR *dp = opendir(path);
     if (dp == NULL)
     {
+        color_red();
         fprintf(stderr, "Error: Could not open directory %s\n", path);
+        color_reset();
         return EXIT_FAILURE;
     }
     while ((entry = readdir(dp)) != NULL)
@@ -64,83 +66,64 @@ int check_diff(char *path, char *latest_commit)
     FILE *file = fopen(path, "rb");
     if (file == NULL)
     {
-        fprintf(stderr, "Error: Could not open file %s\n", path);
         return FILE_NOT_FOUND;
     }
+    long filesize;
+    fseek(file, 0, SEEK_END);
+    filesize = ftell(file);
+    fseek(file, 0, SEEK_SET);
+
     // TODO: Implement diff logic here
-    fclose(file);
-    return EXIT_SUCCESS;
-}
-
-char *get_latest_commit(char *head_name)
-{
-    FILE *index = fopen(".mygit/index", "rb");
-    if (index == NULL)
+    t_blob last = get_latest_file_blob(latest_commit, path);
+    if (last.blob == NULL)
     {
-        fprintf(stderr, "Error: Could not open index file.\n");
-        return NULL;
+        fclose(file);
+        return NEWFILE;
     }
-    t_branches branch;
-    while (fread(&branch, sizeof(t_branches), 1, index) == 1)
+    if (last.size != filesize)
     {
-        if (strcmp(branch.branch_name, head_name) == 0)
-        {
-            fclose(index);
-            char *commit_hash = malloc(41);
-            snprintf(commit_hash, 40, "%s", branch.origin);
-            return commit_hash;
-        }
+        free(last.blob);
+        fclose(file);
+        return MODIFIEDFILE;
     }
-    char *diff_path = malloc(256);
-    snprintf(diff_path, 256, ".mygit/commits/%s", head_name);
-    // check if the file exists
-    FILE *file = fopen(diff_path, "rb");
-    if (file == NULL)
-    {
-        fprintf(stderr, "Error: Could not open file %s\n", diff_path);
-        free(diff_path);
-        fclose(index);
-        return NULL;
-    }
-    fclose(file);
-    free(diff_path);
-    char *commit_hash = malloc(41);
-    snprintf(commit_hash, 40, "%s", head_name);
-    fclose(index);
-    return commit_hash;
-}
-
-char *get_head_name(void)
-{
-    FILE *file = fopen(".mygit/HEAD", "r");
-    if (file == NULL)
-    {
-        fprintf(stderr, "Error: Could not open HEAD file.\n");
-        return NULL;
-    }
-    char *head_name = malloc(256);
-    if (head_name == NULL)
+    // compare the file contents
+    char *buffer = malloc(filesize);
+    if (buffer == NULL)
     {
         fprintf(stderr, "Error: Memory allocation failed.\n");
         fclose(file);
-        return NULL;
+        return ERROR;
     }
-    if (fgets(head_name, 256, file) == NULL)
+    if (fread(buffer, filesize, 1, file) != 1)
     {
-        fprintf(stderr, "Error: Could not read HEAD file.\n");
-        free(head_name);
+        fprintf(stderr, "Error: Could not read file %s\n", path);
+        free(buffer);
+        free(last.blob);
         fclose(file);
-        return NULL;
+        return ERROR;
     }
+    if (memcmp(buffer, last.blob, filesize) != 0)
+    {
+        free(buffer);
+        free(last.blob);
+        fclose(file);
+        return MODIFIEDFILE;
+    }
+    free(buffer);
+    free(last.blob);
 
     fclose(file);
-    return head_name;
+    return ERROR;
 }
 
 void print_diff_status(char *filepath, int status)
 {
     switch (status)
     {
+    case ERROR:
+        color_red();
+        printf("Error:\t%s unknown status\n", filepath);
+        break;
     case FILE_NOT_FOUND:
         color_red();
         printf("File not found:\t%s\n", filepath);
@@ -150,7 +133,7 @@ void print_diff_status(char *filepath, int status)
         printf("New file:\t%s\n", filepath);
         break;
     case MODIFIEDFILE:
-        yellow();
+        color_yellow();
         printf("Modified file:\t%s\n", filepath);
         break;
     case DELETEDFILE:
