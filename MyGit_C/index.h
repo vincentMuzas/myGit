@@ -10,7 +10,6 @@ typedef struct s_branches
 
 typedef struct s_commit
 {
-    char commit_hash[40];
     char commit_message[256];
     char author[256];
     char committer[256];
@@ -21,7 +20,6 @@ typedef struct s_commit
 
 typedef struct s_commit_content
 {
-    char *file_name;
+    char file_name[256];
     __int128_t file_size;
-    __int8_t *file_blob;
 } t_commit_content;

@@ -7,7 +7,8 @@ SRC		= 	main.c	\
 			usage.c	\
 			init.c	\
 			branch.c 	\
-			diff.c	\
+			status.c	\
+			colors.c	\
 
 OBJ		= $(SRC:.c=.o)
 

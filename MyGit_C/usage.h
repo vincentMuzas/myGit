@@ -70,4 +70,4 @@ int not_implemented(int argc, char **argv);
 // functions
 int branch(int argc, char **argv);
 int init(int argc, char **argv);
-int diff(int argc, char **argv);
+int status(int argc, char **argv);
